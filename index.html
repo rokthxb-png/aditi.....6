@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ADITYA QUEEN</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- ========================================================================= -->
+    <!-- 📌 META PIXEL CODE SECTION (আপনার মেটা পিক্সেল কোড এখানে বসান)              -->
+    <!-- ========================================================================= -->
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      // 👇 এখানে আপনার Pixel ID বসিয়ে কমেন্ট সরিয়ে দিন:
+      // fbq('init', 'YOUR_PIXEL_ID_HERE'); 
+      // fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <!-- <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/> -->
+    </noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- ========================================================================= -->
+
+    <style>
+        /* CSS RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000000;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* BACKGROUND CANVAS FOR PARTICLES */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* MAIN CARD CONTAINER */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 380px;
+            background: rgba(10, 10, 12, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            border-radius: 28px;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15),
+                        0 0 50px rgba(34, 197, 94, 0.1);
+            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* PROFILE ANIMATION & NEON BORDER */
+        .profile-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: profilePulse 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes profilePulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .profile-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #a855f7, #22c55e, #a855f7);
+            animation: rotateGlow 4s linear infinite;
+            filter: blur(8px);
+            opacity: 0.85;
+        }
+
+        .profile-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #a855f7, #22c55e, #a855f7);
+            animation: rotateGlow 4s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-img {
+            position: relative;
+            z-index: 2;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #000000;
+            background-color: #111111;
+        }
+
+        /* TYPOGRAPHY */
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.6), 
+                         0 0 20px rgba(34, 197, 94, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #d1d5db;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            max-width: 90%;
+            letter-spacing: 0.2px;
+        }
+
+        /* TELEGRAM CTA BUTTON */
+        .telegram-btn {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5),
+                        0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulseBtn 2.5s infinite;
+            margin-bottom: 20px;
+            user-select: none;
+        }
+
+        @keyframes pulseBtn {
+            0% {
+                box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 28px rgba(34, 197, 94, 0.8);
+                transform: scale(1.02);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+                transform: scale(1);
+            }
+        }
+
+        .telegram-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 35px rgba(34, 197, 94, 0.9);
+        }
+
+        .telegram-btn:active,
+        .telegram-btn.clicked {
+            background: linear-gradient(135deg, #f97316, #ea580c) !important;
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.8) !important;
+            transform: scale(0.97) !important;
+            animation: none !important;
+        }
+
+        /* COUNTDOWN TIMER CONTAINER */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 8px 18px;
+            border-radius: 30px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+        }
+
+        .timer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        .timer-display {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #22c55e;
+            text-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+            font-variant-numeric: tabular-nums;
+            animation: timerGlow 1.5s infinite alternate;
+        }
+
+        @keyframes timerGlow {
+            from {
+                opacity: 0.8;
+                text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+            }
+            to {
+                opacity: 1;
+                text-shadow: 0 0 12px rgba(34, 197, 94, 0.9), 0 0 20px rgba(168, 85, 247, 0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FALLING PARTICLES CANVAS -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- LANDING CARD CONTENT -->
+    <div class="card-container">
+        <!-- PROFILE SECTION WITH ANIMATION -->
+        <div class="profile-wrapper">
+            <img id="profileImage" class="profile-img" src="" alt="Profile Image">
+        </div>
+
+        <!-- PROFILE NAME -->
+        <h1 id="profileName" class="profile-name">ADITYA QUEEN</h1>
+
+        <!-- DESCRIPTION -->
+        <p id="profileDescription" class="description">Education Purpose, 100% Accurate Guidelines.</p>
+
+        <!-- TELEGRAM CTA BUTTON -->
+        <a id="telegramBtn" class="telegram-btn" href="#" target="_blank" rel="noopener noreferrer">
+            JOIN TELEGRAM
+        </a>
+
+        <!-- COUNTDOWN TIMER -->
+        <div class="timer-container">
+            <span class="timer-label">Offer Expires In</span>
+            <span id="timerDisplay" class="timer-display">00:30</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT CONFIGURATION & LOGIC -->
+    <script>
+        /* ========================================================================= */
+        /* ⚙️ EASY CUSTOMIZATION VARIABLES                                            */
+        /* ========================================================================= */
+
+        // 1. 🖼️ এখানে আপনার নিজস্ব প্রোফাইল ছবির লিংক পেস্ট করুন
+        const PROFILE_IMAGE_URL = ""; // <-- উদাহরণ: "https://i.ibb.co/nqycVpLj/Whats-App-Image-2026-09-28-at-9-16-00-AM.jpg"
+
+        // 2. Profile Name
+        const PROFILE_NAME = "ADITI QUEEN";
+
+        // 3. Description Text
+        const DESCRIPTION = "Education Purpose, 100% Accurate Guidelines.";
+
+        // 4. Telegram Channel / Destination URL
+        const TELEGRAM_URL = "https://t.me/+3MgJL362NCszZTg1"; // <-- আপনার টেলিগ্রাম লিংক বসান
+
+        // 5. Countdown Duration in Seconds
+        const COUNTDOWN_SECONDS = 30;
+
+        /* ========================================================================= */
+        /* 🚀 DOM INITIALIZATION                                                     */
+        /* ========================================================================= */
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileImgEl = document.getElementById("profileImage");
+            const profileNameEl = document.getElementById("profileName");
+            const descriptionEl = document.getElementById("profileDescription");
+            const telegramBtnEl = document.getElementById("telegramBtn");
+
+            if (profileImgEl) profileImgEl.src = PROFILE_IMAGE_URL;
+            if (profileNameEl) profileNameEl.textContent = PROFILE_NAME;
+            if (descriptionEl) descriptionEl.textContent = DESCRIPTION;
+            if (telegramBtnEl) telegramBtnEl.href = TELEGRAM_URL;
+
+            // CTA Button Click Animation & Meta Pixel Event Tracking
+            if (telegramBtnEl) {
+                telegramBtnEl.addEventListener("click", function(e) {
+                    this.classList.add("clicked");
+
+                    // 📌 Meta Pixel Event Track (Optional)
+                    if (typeof fbq === 'function') {
+                        fbq('trackCustom', 'TelegramButtonClick', {
+                            url: TELEGRAM_URL
+                        });
+                    }
+                });
+            }
+
+            // Timer & Particles Initialize
+            startCountdown(COUNTDOWN_SECONDS);
+            initParticles();
+        });
+
+        /* ========================================================================= */
+        /* ⏱️ COUNTDOWN TIMER LOGIC                                                  */
+        /* ========================================================================= */
+
+        function startCountdown(seconds) {
+            let remainingTime = seconds;
+            const timerDisplay = document.getElementById("timerDisplay");
+
+            function updateDisplay() {
+                const mins = Math.floor(remainingTime / 60);
+                const secs = remainingTime % 60;
+                const formattedMins = String(mins).padStart(2, '0');
+                const formattedSecs = String(secs).padStart(2, '0');
+                if (timerDisplay) {
+                    timerDisplay.textContent = `${formattedMins}:${formattedSecs}`;
+                }
+            }
+
+            updateDisplay();
+
+            const interval = setInterval(() => {
+                remainingTime--;
+                if (remainingTime <= 0) {
+                    clearInterval(interval);
+                    remainingTime = 0;
+                    updateDisplay();
+                    if (timerDisplay) {
+                        timerDisplay.textContent = "00:00";
+                        timerDisplay.style.color = "#ef4444";
+                    }
+                } else {
+                    updateDisplay();
+                }
+            }, 1000);
+        }
+
+        /* ========================================================================= */
+        /* 🌌 FALLING NEON PARTICLE ANIMATION                                        */
+        /* ========================================================================= */
+
+        function initParticles() {
+            const canvas = document.getElementById("particleCanvas");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+
+            window.addEventListener("resize", () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particleCount = Math.min(Math.floor(width * 0.18), 100);
+            const particles = [];
+
+            const colors = [
+                { r: 168, g: 85, b: 247 }, // Neon Purple
+                { r: 34, g: 197, b: 94 }   // Neon Green
+            ];
+
+            class Particle {
+                constructor() {
+                    this.reset(true);
+                }
+
+                reset(initial = false) {
+                    this.x = Math.random() * width;
+                    this.y = initial ? Math.random() * height : -10;
+                    this.size = Math.random() * 2.5 + 0.8;
+                    this.speed = Math.random() * 1.5 + 0.5;
+                    this.opacity = Math.random() * 0.7 + 0.3;
+                    this.color = colors[Math.floor(Math.random() * colors.length)];
+                    this.glow = Math.random() > 0.5;
+                }
+
+                update() {
+                    this.y += this.speed;
+                    this.x += Math.sin(this.y * 0.01) * 0.3;
+
+                    if (this.y > height + 10) {
+                        this.reset(false);
+                    }
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
+
+                    if (this.glow) {
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = `rgb(${this.color.r}, ${this.color.g}, ${this.color.b})`;
+                    } else {
+                        ctx.shadowBlur = 0;
+                    }
+
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+</body>
+</html>
