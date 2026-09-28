@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADITYA QUEEN</title>
     
     <!-- Google Fonts -->
@@ -10,9 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- ========================================================================= -->
-    <!-- 📌 META PIXEL CODE SECTION (আপনার মেটা পিক্সেল কোড এখানে বসান)              -->
-    <!-- ========================================================================= -->
     <!-- Meta Pixel Code -->
     <script>
       !function(f,b,e,v,n,t,s)
@@ -23,16 +20,14 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      
-      // 👇 এখানে আপনার Pixel ID বসিয়ে কমেন্ট সরিয়ে দিন:
-      // fbq('init', 'YOUR_PIXEL_ID_HERE'); 
-      // fbq('track', 'PageView');
+      fbq('init', '1630347451798537');
+      fbq('track', 'PageView');
     </script>
     <noscript>
-      <!-- <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1"/> -->
+      <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1630347451798537&ev=PageView&noscript=1"/>
     </noscript>
     <!-- End Meta Pixel Code -->
-    <!-- ========================================================================= -->
 
     <style>
         /* CSS RESET & BASE STYLES */
@@ -45,14 +40,15 @@
 
         html, body {
             width: 100%;
-            height: 100%;
-            overflow: hidden;
+            min-height: 100vh;
             background-color: #000000;
             font-family: 'Poppins', sans-serif;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow-x: hidden;
+            overflow-y: auto; /* মোবাইলে রিফ্রেশ কাজ করার জন্য overflow-y auto করা হয়েছে */
         }
 
         /* BACKGROUND CANVAS FOR PARTICLES */
@@ -78,6 +74,7 @@
             border: 1px solid rgba(168, 85, 247, 0.25);
             border-radius: 28px;
             padding: 32px 24px;
+            margin: 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -282,7 +279,7 @@
     <div class="card-container">
         <!-- PROFILE SECTION WITH ANIMATION -->
         <div class="profile-wrapper">
-            <img id="profileImage" class="profile-img" src="" alt="Profile Image">
+            <img id="profileImage" class="profile-img" src="https://i.ibb.co/nqycVpLj/Whats-App-Image-2026-09-28-at-9-16-00-AM.jpg" alt="ADITYA QUEEN">
         </div>
 
         <!-- PROFILE NAME -->
@@ -292,7 +289,7 @@
         <p id="profileDescription" class="description">Education Purpose, 100% Accurate Guidelines.</p>
 
         <!-- TELEGRAM CTA BUTTON -->
-        <a id="telegramBtn" class="telegram-btn" href="#" target="_blank" rel="noopener noreferrer">
+        <a id="telegramBtn" class="telegram-btn" href="https://t.me/+3MgJL362NCszZTg1" target="_blank" rel="noopener noreferrer">
             JOIN TELEGRAM
         </a>
 
@@ -303,51 +300,21 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT CONFIGURATION & LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        /* ========================================================================= */
-        /* ⚙️ EASY CUSTOMIZATION VARIABLES                                            */
-        /* ========================================================================= */
-
-        // 1. 🖼️ এখানে আপনার নিজস্ব প্রোফাইল ছবির লিংক পেস্ট করুন
-        const PROFILE_IMAGE_URL = ""; // <-- উদাহরণ: "https://i.ibb.co/nqycVpLj/Whats-App-Image-2026-09-28-at-9-16-00-AM.jpg"
-
-        // 2. Profile Name
-        const PROFILE_NAME = "ADITI QUEEN";
-
-        // 3. Description Text
-        const DESCRIPTION = "Education Purpose, 100% Accurate Guidelines.";
-
-        // 4. Telegram Channel / Destination URL
-        const TELEGRAM_URL = "https://t.me/+3MgJL362NCszZTg1"; // <-- আপনার টেলিগ্রাম লিংক বসান
-
-        // 5. Countdown Duration in Seconds
         const COUNTDOWN_SECONDS = 30;
 
-        /* ========================================================================= */
-        /* 🚀 DOM INITIALIZATION                                                     */
-        /* ========================================================================= */
-
         document.addEventListener("DOMContentLoaded", () => {
-            const profileImgEl = document.getElementById("profileImage");
-            const profileNameEl = document.getElementById("profileName");
-            const descriptionEl = document.getElementById("profileDescription");
             const telegramBtnEl = document.getElementById("telegramBtn");
-
-            if (profileImgEl) profileImgEl.src = PROFILE_IMAGE_URL;
-            if (profileNameEl) profileNameEl.textContent = PROFILE_NAME;
-            if (descriptionEl) descriptionEl.textContent = DESCRIPTION;
-            if (telegramBtnEl) telegramBtnEl.href = TELEGRAM_URL;
 
             // CTA Button Click Animation & Meta Pixel Event Tracking
             if (telegramBtnEl) {
                 telegramBtnEl.addEventListener("click", function(e) {
                     this.classList.add("clicked");
 
-                    // 📌 Meta Pixel Event Track (Optional)
                     if (typeof fbq === 'function') {
                         fbq('trackCustom', 'TelegramButtonClick', {
-                            url: TELEGRAM_URL
+                            url: "https://t.me/+3MgJL362NCszZTg1"
                         });
                     }
                 });
@@ -358,10 +325,7 @@
             initParticles();
         });
 
-        /* ========================================================================= */
-        /* ⏱️ COUNTDOWN TIMER LOGIC                                                  */
-        /* ========================================================================= */
-
+        /* COUNTDOWN TIMER LOGIC */
         function startCountdown(seconds) {
             let remainingTime = seconds;
             const timerDisplay = document.getElementById("timerDisplay");
@@ -394,10 +358,7 @@
             }, 1000);
         }
 
-        /* ========================================================================= */
-        /* 🌌 FALLING NEON PARTICLE ANIMATION                                        */
-        /* ========================================================================= */
-
+        /* FALLING NEON PARTICLE ANIMATION */
         function initParticles() {
             const canvas = document.getElementById("particleCanvas");
             if (!canvas) return;
